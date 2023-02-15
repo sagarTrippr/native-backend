@@ -14,7 +14,11 @@ const userSchema = new mongoose.Schema({
         trim:true,
         required:true
     },
-    coordinate:{
+    lat:{
+        type:String,
+        default:null
+    },
+    long:{
         type:String,
         default:null
     }

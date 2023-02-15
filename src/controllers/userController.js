@@ -33,8 +33,8 @@ const updateUser = async function (req, res) {
     try {
         let content = req.body;
         let userName = content.email
-       const data = await userModel.findOneAndUpdate({ email: userName }, { coordinate: content.coordinate }, { new: true });
-console.log(data)
+       const data = await userModel.findOneAndUpdate({ email: userName }, { lat: content.lat,long:content.long }, { new: true });
+// console.log(data)
         res.status(201).send({ status: true, data: data })
     } catch (err) {
         console.log(err.message)
