@@ -15,8 +15,8 @@ const loginUser = async function (req, res) {
         let content = req.body;
         let userName = content.email
         let password = content.password
-        if (!isValid(userName)) return res.status(400).send({ status: false, msg: "please Enter email" })
-        if (!isValid(password)) return res.status(400).send({ status: false, msg: "please Enter Password" })
+        if (!isValid(userName)) return res.status(400).send({ status: false, message: "please Enter email" })
+        if (!isValid(password)) return res.status(400).send({ status: false, message: "please Enter Password" })
         if (!validator.isEmail(userName))
             return res
                 .status(400)
