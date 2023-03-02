@@ -6,6 +6,7 @@ const userController = require('../controllers/userController')
 router.post('/login', userController.loginUser)
 router.put('/update', userController.updateUser)
 router.post('/fetch', userController.fetchUser)
+router.get('/fetchAll', userController.fetchAllUser)
 
 
 

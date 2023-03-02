@@ -27,13 +27,13 @@ const loginUser = async function (req, res) {
             const hash = bcrypt.hashSync(password, salt);
 
             let cred = await userModel.create({ email: userName, password: hash });
-            res.status(200).send({ status: true, msg: "log in successfull", data: cred })
+            res.status(200).send({ status: true, message: "log in successfull", data: cred })
         } else {
-            res.status(200).send({ status: true, msg: "log in successfull", data: user })
+            res.status(200).send({ status: true, message: "log in successfull", data: user })
         }
     } catch (err) {
         console.log(err.message)
-        res.status(500).send({ error: err.message })
+        res.status(500).send({ message: err.message })
     }
 
 }
@@ -47,7 +47,7 @@ const updateUser = async function (req, res) {
         res.status(201).send({ status: true, data: data })
     } catch (err) {
         console.log(err.message)
-        res.status(500).send({ error: err.message })
+        res.status(500).send({ message: err.message })
     }
 
 }
@@ -59,7 +59,17 @@ const fetchUser = async function (req, res) {
         res.status(201).send({ status: true, data: data })
     } catch (err) {
         console.log(err.message)
-        res.status(500).send({ error: err.message })
+        res.status(500).send({ message: err.message })
+    }
+
+}
+const fetchAllUser = async function (req, res) {
+    try {
+        const data = await userModel.find();
+        res.status(201).send({ status: true, data: data })
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).send({ message: err.message })
     }
 
 }
@@ -67,4 +77,4 @@ const fetchUser = async function (req, res) {
 
 
 
-module.exports = { loginUser, updateUser, fetchUser }
+module.exports = { loginUser, updateUser, fetchUser ,fetchAllUser}
