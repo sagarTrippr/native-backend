@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
     email:{
         type:String,
         trim:true,
-        unique:[true,"email already exists enter correct password or try with different email"],
+        unique:true,
         index: { unique: true },
         required:true
     },

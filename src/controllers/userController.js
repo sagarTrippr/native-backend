@@ -21,7 +21,7 @@ const loginUser = async function (req, res) {
             return res
                 .status(400)
                 .send({ status: false, message: `${userName} email is not valid` });
-        let user = await userModel.findOne( { email: userName } )
+        let user = await userModel.findOne({ email: userName })
         if (!user) {
             const salt = bcrypt.genSaltSync(saltRounds);
             const hash = bcrypt.hashSync(password, salt);
@@ -29,7 +29,12 @@ const loginUser = async function (req, res) {
             let cred = await userModel.create({ email: userName, password: hash });
             res.status(200).send({ status: true, message: "log in successfull", data: cred })
         } else {
-            res.status(200).send({ status: true, message: "log in successfull", data: user })
+            let decrypt = bcrypt.compareSync(password, user.password);
+            if (decrypt) {
+                res.status(200).send({ status: true, message: "log in successfull", data: user })
+            } else {
+                res.status(200).send({ status: false, message: "Wrong Password Try Again" })
+            }
         }
     } catch (err) {
         console.log(err.message)
@@ -77,4 +82,4 @@ const fetchAllUser = async function (req, res) {
 
 
 
-module.exports = { loginUser, updateUser, fetchUser ,fetchAllUser}
+module.exports = { loginUser, updateUser, fetchUser, fetchAllUser }
