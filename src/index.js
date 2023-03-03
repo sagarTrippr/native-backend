@@ -15,7 +15,9 @@ mongoose.connect("mongodb+srv://Sagar-functionup:radhaswami123@cluster0.7xlsi.mo
 
 
 app.use('/', route);
-
+app.use('/app',function(req,res){
+    res.send("App is running fine")
+})
 
 app.listen(process.env.PORT || 4444, function () {
     console.log('Express app running on port ' + (process.env.PORT || 4444))
