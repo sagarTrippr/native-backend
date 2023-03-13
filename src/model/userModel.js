@@ -14,15 +14,13 @@ const userSchema = new mongoose.Schema({
         trim:true,
         required:true
     },
-    lat:{
-        type:String,
-        default:null
-    },
-    long:{
-        type:String,
-        default:null
-    }
-
+    coordinates:[
+        {
+            lat:{type:String},
+            long:{type:String},
+            date:{type:Date}
+        }
+    ]
 })
 
 module.exports = mongoose.model('user', userSchema)
