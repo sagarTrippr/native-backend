@@ -15,19 +15,26 @@ const loginUser = async function (req, res) {
         let content = req.body;
         let userName = content.email
         let password = content.password
+        let phone = content.phone
         if (!isValid(userName)) return res.status(400).send({ status: false, message: "please Enter email" })
         if (!isValid(password)) return res.status(400).send({ status: false, message: "please Enter Password" })
+        if (!isValid(phone)) return res.status(400).send({ status: false, message: "please Enter phone number" })
         if (!validator.isEmail(userName))
             return res
                 .status(400)
                 .send({ status: false, message: `${userName} email is not valid` });
+        if (!validator.isMobilePhone(phone))
+            return res
+                .status(400)
+                .send({ status: false, message: `Enter a valid phone number` });
+
         let user = await userModel.findOne({ email: userName })
         if (!user) {
             const salt = bcrypt.genSaltSync(saltRounds);
             const hash = bcrypt.hashSync(password, salt);
 
-            let cred = await userModel.create({ email: userName, password: hash });
-            res.status(200).send({ status: true, message: "log in successfull", data: cred })
+            let cred = await userModel.create({ email: userName, password: hash,phone:phone });
+            res.status(200).send({ status: true, message: "logIn successfull", data: cred })
         } else {
             let decrypt = bcrypt.compareSync(password, user.password);
             if (decrypt) {
